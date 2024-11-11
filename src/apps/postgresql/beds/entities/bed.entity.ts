@@ -1,16 +1,16 @@
 import { AbstractEntity } from 'src/resources/base/abstract-entity-base';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Ward } from '../../wards/entities/ward.entity';
 import { YesNoEnum } from 'src/resources/enum/yes-no.enum';
 
 @Entity()
 export class Bed extends AbstractEntity<Bed> {
   @Column()
-  name: string;
+  bedNo: number;
 
-  @Column()
-  @ManyToOne(() => Ward, (ward) => ward.name)
-  ward: string;
+  @ManyToOne(() => Ward, (ward) => ward.beds)
+  @JoinColumn()
+  ward: Ward;
 
   @Column()
   active: YesNoEnum;

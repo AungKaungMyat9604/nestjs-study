@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MainDatabaseModule } from './services/databases/main-database/main-database.module';
+import { MainDatabaseModule } from './services/individual/databases/main-database/main-database.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './apps/main/users/users.module';
-import { BackupDatabaseModule } from './services/databases/secondary-database/secondary-database.module';
+import { BackupDatabaseModule } from './services/individual/databases/secondary-database/secondary-database.module';
 import { SnacksModule } from './apps/secondary/snacks/snacks.module';
 import { TitlesModule } from './apps/main/titles/titles.module';
 import { RolesModule } from './apps/main/roles/roles.module';
-import { PostgresqlDatabaseModule } from './services/databases/postgresql-database/postgresql-database.module';
-import { postgresqlDatabaseConfig } from './services/databases/postgresql-database/postgresql-database.config';
+import { PostgresqlDatabaseModule } from './services/individual/databases/postgresql-database/postgresql-database.module';
+import { postgresqlDatabaseConfig } from './services/individual/databases/postgresql-database/postgresql-database.config';
 import { DepartmentsModule } from './apps/postgresql/departments/departments.module';
 import { BedsModule } from './apps/postgresql/beds/beds.module';
 import { WardsModule } from './apps/postgresql/wards/wards.module';
+import { AjvModule } from './services/gloabal/ajv/ajv.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { WardsModule } from './apps/postgresql/wards/wards.module';
     PostgresqlDatabaseModule,
     BedsModule,
     WardsModule,
+    AjvModule,
   ],
   controllers: [AppController],
   providers: [AppService],

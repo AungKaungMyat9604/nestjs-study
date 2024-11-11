@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBedDto } from './dto/create-bed.dto';
 import { UpdateBedDto } from './dto/update-bed.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { Bed } from './entities/bed.entity';
 
 @Injectable()
 export class BedsService {
+  constructor(@InjectRepository(Bed) private bedRepository: Repository<Bed>) {}
+
+  count(options?: FindManyOptions<Bed>) {
+    return this.bedRepository.count(options);
+  }
   create(createBedDto: CreateBedDto) {
-    return 'This action adds a new bed';
+    const bed = this.bedRepository.create(createBedDto);
+    return this.bedRepository.save(bed);
   }
 
-  findAll() {
-    return `This action returns all beds`;
+  findAll(options?: FindManyOptions<Bed>) {
+    return this.bedRepository.find(options);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bed`;
+  findOne(options?: FindOneOptions<Bed>) {
+    return this.bedRepository.findOne(options);
   }
 
-  update(id: number, updateBedDto: UpdateBedDto) {
-    return `This action updates a #${id} bed`;
+  async update(options: FindOneOptions<Bed>, updateBedDto: UpdateBedDto) {
+    const item = await this.findOne(options);
+    return this.bedRepository.save({ ...item, ...updateBedDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bed`;
+  async remove(options: FindOneOptions<Bed>) {
+    const item = await this.findOne(options);
+    const id = item.id;
+    await this.bedRepository.remove(item);
+
+    item.id = id;
+    return item;
   }
 }

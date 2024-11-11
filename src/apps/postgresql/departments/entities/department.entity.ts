@@ -1,11 +1,10 @@
 import { AbstractEntity } from 'src/resources/base/abstract-entity-base';
-import { Column, Entity, Unique } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
-@Unique('UniqueDepartmentName', ['name'])
 export class Department extends AbstractEntity<Department> {
-  @Column()
-  name: string;
+  @Column({ unique: true })
+  deptName: string;
 
   @Column()
   location: string;
