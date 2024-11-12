@@ -14,16 +14,19 @@ import { DepartmentsModule } from './apps/postgresql/departments/departments.mod
 import { BedsModule } from './apps/postgresql/beds/beds.module';
 import { WardsModule } from './apps/postgresql/wards/wards.module';
 import { AjvModule } from './services/gloabal/ajv/ajv.module';
+import { mainDatabaseConfig } from './services/individual/databases/main-database/main-database.config';
+import { secondaryDatabaseConfig } from './services/individual/databases/secondary-database/secondary-database.config';
+import { DatabaseEnum } from './resources/enum/database.enum';
 
 @Module({
   imports: [
-    // //TypeORM Modules
-    // TypeOrmModule.forRoot(mainDatabaseConfig),
-    // TypeOrmModule.forRootAsync({
-    //   name: DatabaseEnum.SECONDARY,
-    //   useFactory: () => secondaryDatabaseConfig,
-    // }),
-    TypeOrmModule.forRoot(postgresqlDatabaseConfig),
+    //TypeORM Modules
+    TypeOrmModule.forRoot(mainDatabaseConfig),
+    TypeOrmModule.forRootAsync({
+      name: DatabaseEnum.SECONDARY,
+      useFactory: () => secondaryDatabaseConfig,
+    }),
+    // TypeOrmModule.forRoot(postgresqlDatabaseConfig),
 
     //App Modules
     TitlesModule,
