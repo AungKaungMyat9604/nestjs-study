@@ -1,8 +1,9 @@
 import {
   ConnectedSocket,
-  MessageBody, SubscribeMessage,
+  MessageBody,
+  SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { BehaviorSubject } from 'rxjs';
 import { Socket } from 'socket.io';
