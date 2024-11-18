@@ -10,7 +10,9 @@ import {
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { AreAdmin, IsAdmin } from 'src/guards/policy/decorator/policy.decorator';
 
+@AreAdmin()
 @Controller('roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
@@ -19,6 +21,7 @@ export class RolesController {
   create(@Body() createRoleDto: CreateRoleDto) {
     return this.rolesService.create(createRoleDto);
   }
+
 
   @Get('all')
   findAll() {

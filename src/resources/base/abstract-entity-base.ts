@@ -10,7 +10,7 @@ export abstract class AbstractEntity<T> {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: YesNoEnum.Yes })
+  @Column({ default: YesNoEnum.YES })
   active: YesNoEnum;
 
   @CreateDateColumn()

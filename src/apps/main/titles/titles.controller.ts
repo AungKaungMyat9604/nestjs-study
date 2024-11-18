@@ -1,15 +1,15 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { TitlesService } from './titles.service';
 import { CreateTitleDto } from './dto/create-title.dto';
 import { UpdateTitleDto } from './dto/update-title.dto';
+import { TitlesService } from './titles.service';
 
 @Controller('titles')
 export class TitlesController {
@@ -19,6 +19,12 @@ export class TitlesController {
   create(@Body() createTitleDto: CreateTitleDto) {
     return this.titleService.create(createTitleDto);
   }
+
+  // @Get()
+  // findAll(@CurrentUser('username') username: string) {
+  //   console.log(username);
+  //   return this.titleService.findAll();
+  // }
 
   @Get()
   findAll() {
