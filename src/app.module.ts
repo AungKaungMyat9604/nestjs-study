@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './apps/main/auth/auth.module';
+import { TokenPayloadType } from './apps/main/auth/auth.type';
 import { RolesModule } from './apps/main/roles/roles.module';
 import { TitlesModule } from './apps/main/titles/titles.module';
 import { User } from './apps/main/users/entities/users.entity';
@@ -11,6 +13,7 @@ import { BedsModule } from './apps/postgresql/beds/beds.module';
 import { DepartmentsModule } from './apps/postgresql/departments/departments.module';
 import { WardsModule } from './apps/postgresql/wards/wards.module';
 import { SnacksModule } from './apps/secondary/snacks/snacks.module';
+import { AppGuard } from './guards/app-guard/app-guard.guard';
 import { AssignReqGuard } from './guards/assign-req/assign-req.guard';
 import { PolicyGuard } from './guards/policy/policy.guard';
 import { DatabaseEnum } from './resources/enum/database.enum';
@@ -22,9 +25,6 @@ import { MainDatabaseModule } from './services/individual/databases/main-databas
 import { PostgresqlDatabaseModule } from './services/individual/databases/postgresql-database/postgresql-database.module';
 import { secondaryDatabaseConfig } from './services/individual/databases/secondary-database/secondary-database.config';
 import { BackupDatabaseModule } from './services/individual/databases/secondary-database/secondary-database.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AppGuard } from './guards/app-guard/app-guard.guard';
-import { TokenPayloadType } from './apps/main/auth/auth.type';
 
 declare global {
   namespace Express {
@@ -67,6 +67,8 @@ declare global {
     AppService,
     AssignReqGuard,
     PolicyGuard,
+    Logger,
+
     { provide: APP_GUARD, useClass: AppGuard },
   ],
 })
